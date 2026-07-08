@@ -1,0 +1,26 @@
+{
+    "name": "explicatis/composer-binary-checker",
+    "description": "Plugin for Composer to require the presence of a binary on the target system",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.2"
+    },
+    "require-dev": {
+        "symfony/process": "^7.0"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Composer\\": "build/composer/"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": "App\\Composer\\BinaryChecker::check",
+        "post-update-cmd": "App\\Composer\\BinaryChecker::check"
+    },
+    "extra": {
+        "required-binaries": [
+            "git"
+        ]
+    }
+}
