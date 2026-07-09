@@ -4,12 +4,37 @@ declare(strict_types=1);
 
 namespace App\Composer;
 
+use Composer\Composer;
+use Composer\EventDispatcher\EventSubscriberInterface;
+use Composer\IO\IOInterface;
+use Composer\Plugin\PluginInterface;
 use Composer\Script\Event;
+use Composer\Script\ScriptEvents;
 use Symfony\Component\Process\ExecutableFinder;
 
-class BinaryChecker
+class BinaryChecker implements PluginInterface, EventSubscriberInterface
 {
-    public static function check(Event $event): void
+    public function activate(Composer $composer, IOInterface $io): void
+    {
+    }
+
+    public function deactivate(Composer $composer, IOInterface $io): void
+    {
+    }
+
+    public function uninstall(Composer $composer, IOInterface $io): void
+    {
+    }
+
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            ScriptEvents::POST_INSTALL_CMD => 'check',
+            ScriptEvents::POST_UPDATE_CMD => 'check',
+        ];
+    }
+
+    public function check(Event $event): void
     {
         $extra = $event->getComposer()->getPackage()->getExtra();
         $requiredBinaries = $extra['required-binaries'] ?? [];

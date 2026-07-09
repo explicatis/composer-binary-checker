@@ -1,5 +1,18 @@
 # composer-binary-checker
-Plugin for Composer to require the presence of a binary on the target system
+Composer plugin to require the presence of a binary on the target system
+
+## Installation
+
+```bash
+composer require explicatis/composer-binary-checker
+```
+
+As with any Composer plugin, Composer will ask you to allow it to execute
+code on your system:
+
+```bash
+composer config allow-plugins.explicatis/composer-binary-checker true
+```
 
 ## Configuring required system binaries
 
